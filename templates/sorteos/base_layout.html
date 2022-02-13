@@ -1,0 +1,83 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Amigo Invisible</title>
+
+  <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}"/>
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css'%}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css'%}">
+</head>
+<body class="hold-transition {% block sidebar_option %} {% endblock %} layout-fixed layout-navbar-fixed layout-footer-fixed">
+<!-- Site wrapper -->
+<div class="wrapper">
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-dark navbar-primary">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+          <a id="nbar" class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+        </li>
+    </ul>
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+      {% if user.is_authenticated %}
+        <li class="nav-item d-none d-sm-inline-block"><a class="nav-link">Hola, {{user.username}}</a></li>
+        {% if user.is_staff %}
+          <li class="nav-item d-none d-sm-inline-block"><a href="{% url 'admin:index' %}" class="nav-link">Administrar</a></li>
+        {% endif %}
+        <li class="nav-item d-none d-sm-inline-block"><a href="{% url 'password_change' %}" class="nav-link">Cambiar contraseña</a></li>
+        <li class="nav-item d-none d-sm-inline-block"><a href="{% url 'logout' %}" class="nav-link">Salir</a></li>
+      {% endif %}      
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  {% block sidebar %}
+
+  {% endblock %}
+
+  <!-- Content Wrapper. Contains page content -->
+  {% block content %}
+
+  {% endblock %}
+  <!-- /.content-wrapper -->
+
+  <footer class="main-footer">
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> Beta
+    </div>
+    <strong>Diseñado con <a href="https://www.python.org/">Python</a> y <a href="https://adminlte.io">AdminLTE.io</a> en <a href="https://https://www.djangoproject.com/">Django</a>.</strong>
+  </footer>
+
+  <!-- Control Sidebar -->
+  <!-- <aside class="control-sidebar control-sidebar-dark"> -->
+    <!-- Control sidebar content goes here -->
+  <!-- </aside> -->
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="{% static 'plugins/jquery/jquery.min.js'%}"></script>
+<!-- Bootstrap 4 -->
+<script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+<!-- AdminLTE App -->
+<script src="{% static 'dist/js/adminlte.min.js'%}"></script>
+<!-- AdminLTE for demo purposes -->
+<!-- <script src="../../dist/js/demo.js"></script> -->
+<script>
+// navbar hack
+if ($(".sidebar-collapse")[0])
+document.getElementById("nbar").style.display = "none";
+</script>
+</body>
+</html>
+

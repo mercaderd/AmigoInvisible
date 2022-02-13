@@ -1,0 +1,37 @@
+{% extends "sorteos/base_layout.html" %}
+{% load static %}
+ {% block sidebar_option %}
+    sidebar-collapse
+{% endblock %}
+{% block content %}
+<div class="container">
+        <div class="content-wrapper">
+            <div class="content-header">   
+            </div>
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="card">
+                        <div class="card-header">
+                            <div class="row justfy-content-center">
+                                <img src="{% static '/img/logo.png' %}" alt="Amigo Invisible" class="img-thumbnail mx-auto">
+                            </div>
+                        </div>
+                            <div class="card-body">
+                                <div class="row justify-content-center">
+                                    <p>Hola, {{ user }}.
+                                        Comprueba tu correo electrónico y sigue las instrucciones para activar tu cuenta. No olvides mirar en la carpeta de Spam.</p>
+                                </div>
+                                <div class="row justify-content-center">
+                                 <a href="{% url 'sorteos:index' %}">Entendido</a>
+                                </div>                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    
+</div>
+{% endblock %}

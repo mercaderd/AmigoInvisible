@@ -1,0 +1,67 @@
+{% extends "sorteos/base_layout.html" %}
+{% load static %}
+ {% block sidebar_option %}
+    sidebar-collapse
+{% endblock %}
+
+{% block content %}
+<div class="container">
+        <div class="content-wrapper">
+            <div class="content-header">   
+            </div>
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="card">
+                        <div class="card-header">
+                            <div class="row justify-content-center">
+                                <h5 class="card-title">Añadir amigo en {{ sorteo.name }}</h5>
+                            </div>
+                        </div>
+                            <div class="card-body">
+                                <form method="post" action="{% url 'sorteos:participante' sorteo.md5 %}">
+                                    {% csrf_token %}
+                                    <div class="form-row">
+                                        <div class="form-group col-md-12">
+                                            {% if form.errors %}
+                                            <div class="invalid-feedback d-block">Error</div>
+                                            {% endif %}
+                                            <div class="form-label-group">
+                                                <label for="name">Nombre</label>
+                                                <input type="text" id="name" name="name" class="form-control" maxlength=20 required autofocus>
+                                            </div>
+                                            {% for e in form.errors.name %}
+                                            <div class="invalid-feedback d-block">{{e}}</div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-12">
+                                            <div class="form-label-group">
+                                                <label for="email">Email</label>
+                                                <input type="email" name="email" id="email" class="form-control" maxlenght=50 required>
+                                            </div>
+                                            {% for e in form.errors.email %}
+                                            <div class="invalid-feedback d-block">{{e}}</div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <div class="form-row justify-content-center">
+                                        <input type="submit" class="btn btn-primary" value="Añadir" />
+                                    </div>
+                                    <input type="hidden" name="next" value="{{ next }}" />
+                                </form>                             
+                            </div>
+                             
+                        </div>
+                        <div class="row justify-content-center">
+                            <a href="{% url 'sorteos:detail' sorteo.md5 %}" >Volver</a>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    
+</div>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends "sorteos/base_layout.html" %}
+{% load static %}
+ {% block sidebar_option %}
+    sidebar-collapse
+{% endblock %}
+{% block content %}
+<div class="container">
+        <div class="content-wrapper">
+            <div class="content-header">   
+            </div>
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="card">
+                        <div class="card-header">
+                            <div class="row justify-content-center">
+                                <h5 class="card-title">Nuevo evento de {{user.username}}</h5>
+                            </div>
+                        </div>
+                            <div class="card-body">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <div class="form-row">
+                                        <div class="form-group col-md-12">
+                                            {% if form.errors %}
+                                            <div class="invalid-feedback d-block">Error</div>
+                                            {% endif %}
+                                            <div class="form-label-group">
+                                                <label for="name">Evento</label>
+                                                <input type="text" id="name" name="name" class="form-control" maxlength=20 required autofocus>
+                                            </div>
+                                            {% for e in form.errors.name %}
+                                            <div class="invalid-feedback d-block">{{e}}</div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-12">
+                                            <div class="form-label-group">
+                                                <label for="description">Condiciones</label>
+                                                <input type="text" name="description" id="description" class="form-control" maxlenght=200 placeholder="Ej: Máximo 10€!">
+                                            </div>
+                                            {% for e in form.errors.description %}
+                                            <div class="invalid-feedback d-block">{{e}}</div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <div class="form-row justify-content-center">
+                                        <input type="submit" class="btn btn-primary" value="Crear" />
+                                    </div>
+                                    <input type="hidden" name="next" value="{{ next }}" />
+                                </form>                             
+                            </div>
+                             
+                        </div>
+                        <div class="row justify-content-center">
+                            <a href="{% url 'sorteos:index' %}" >Volver</a>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    
+</div>
+{% endblock %}
