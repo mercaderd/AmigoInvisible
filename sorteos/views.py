@@ -110,7 +110,7 @@ class ParticipanteView(LoginRequiredMixin, generic.View):
         sorteo.done = False
         sorteo.enviado = False
         sorteo.save()
-        log_msg = "New paticipante {} created".format(new_participante.name)
+        log_msg = "Nuevo amigo {} añadido por {} en evento {}".format(new_participante.name, self.request.user,sorteo.name)
         logger.info(log_msg)
         return HttpResponseRedirect(reverse('sorteos:detail',kwargs={'md5':md5} ))
 
@@ -160,6 +160,8 @@ class BorrarParticipanteView(LoginRequiredMixin, generic.View):
             sorteo.done = False
             sorteo.enviado = False
             sorteo.save()
+            log_msg = "Amigo {} borrado por {} de evento {}".format(participante.name, self.request.user,sorteo.name)
+            logger.info(log_msg)
         return HttpResponseRedirect(reverse('sorteos:detail',kwargs={'md5':sorteo.md5} ))
 
 

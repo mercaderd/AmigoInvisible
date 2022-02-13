@@ -36,6 +36,7 @@ DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = ['127.0.0.1','*']
 
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # Application definition
 
@@ -94,6 +95,12 @@ DATABASES = {
     }
 }
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'my_cache_table',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
