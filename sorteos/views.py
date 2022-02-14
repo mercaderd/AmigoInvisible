@@ -145,7 +145,7 @@ class ExclusionView(LoginRequiredMixin, generic.View):
         sorteo.done = False
         sorteo.enviado = False
         sorteo.save()
-        log_msg = "New exclusion {} created".format(new_exclusion)
+        log_msg = "Nueva exclusion creada: {}".format(new_exclusion)
         logger.info(log_msg)
         return HttpResponseRedirect(reverse('sorteos:detail',kwargs={'md5':sorteo_md5} ))
 
@@ -175,6 +175,8 @@ class BorrarExclusionView(LoginRequiredMixin, generic.View):
             sorteo.done = False
             sorteo.enviado = False
             sorteo.save()
+            log_msg = "Exclusion de {} a {} borrada por {} de evento {}".format(exclusion.de_participante, exclusion.a_participante, self.request.user,sorteo.name)
+            logger.info(log_msg)
         return HttpResponseRedirect(reverse('sorteos:detail',kwargs={'md5':sorteo.md5} ))
 
 
@@ -184,6 +186,8 @@ class BorrarSorteoView(LoginRequiredMixin, generic.View):
         sorteo = get_object_or_404(Sorteo, md5=md5)
         if sorteo:
             sorteo.delete()
+            log_msg = "Evento {} eliminado por {}".format(sorteo.name, self.request.user)
+            logger.info(log_msg)
         return HttpResponseRedirect(reverse('sorteos:index'))
 
 
@@ -202,8 +206,10 @@ class RegisterView(generic.View):
         user = form.save(commit=False)
         user.is_active = False
         user.save()
+        log_msg = "Usuario {} registrado. Cuenta no activada".format(user)
+        logger.info(log_msg)
         current_site = get_current_site(request)
-        mail_subject = 'Activate your account.'
+        mail_subject = 'Amigo Invisible - Activa tu cuenta'
         message = render_to_string('registration/acc_active_email.html', {
                 'user': user,
                 'domain': current_site.domain,
@@ -214,8 +220,12 @@ class RegisterView(generic.View):
         email = EmailMessage(
             mail_subject, message, to=[to_email]
             )
-        email.send()
-        print(message)
+        try:
+            email.send()
+            log_msg = "Email de activación enviado a usuario {}".format(user)
+            logger.info(log_msg)
+        except Exception as e:
+            logger.error(e)
         ctx = {'user': user}
         return render(request, 'registration/acc_email_confirm.html', ctx)
 
@@ -231,9 +241,13 @@ class ActivateView(generic.View):
         if user is not None and default_token_generator.check_token(user, token):
             user.is_active = True
             user.save()
+            log_msg = "Usuario {} activado correctamente".format(user)
+            logger.info(log_msg)
             ctx = {'user': user}
             return render(request, 'registration/acc_email_success.html', ctx)
         else:
+            log_msg = "Intento de activación de usuario con uid {}".format(uid)
+            logger.warn(log_msg)
             return render(request, 'registration/acc_email_fail.html')
 
 
@@ -266,6 +280,8 @@ class SortearView(LoginRequiredMixin, generic.View):
         sorteo.done = True
         sorteo.enviado = False
         sorteo.save()
+        log_msg = "Evento {} sorteado".format(sorteo)
+        logger.info(log_msg)
         return HttpResponseRedirect(reverse('sorteos:detail',kwargs={'md5':sorteo.md5} ))
 
 
@@ -281,13 +297,20 @@ class EnviarMailsView(LoginRequiredMixin, generic.View):
                     message = render_to_string('registration/acc_resultado_email.html', {
                         'user': regalo.de_participante,
                         'partner': regalo.a_participante,
-                        'condiciones': sorteo.description
+                        'evento': sorteo.name,
+                        'condiciones': sorteo.description,
                         })
                     to_email = regalo.de_participante.email
                     email = EmailMessage(
                         mail_subject, message, to=[to_email]
                         )
-                    email.send() 
+                    try:
+                        email.send()
+                        log_msg = "Email enviado correctamente a usuario {} para evento {}".format(regalo.de_participante, sorteo.name)
+                        logger.info(log_msg)
+                    except Exception as e:
+                        log_msg = "Error enviando email a usuario {} para evento {}".format(regalo.de_participante, sorteo.name)
+                        logger.warn(log_msg)
             sorteo.enviado = True
             sorteo.save()       
         return HttpResponseRedirect(reverse('sorteos:detail',kwargs={'md5':sorteo.md5}))
