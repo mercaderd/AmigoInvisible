@@ -1,6 +1,6 @@
 # Amigo Invisible Version: 0.1.0
 
-Aplicación web para sorteos de amigo invisible.[Amigo Invisible Logo](./static/img/logo.png) 
+Aplicación web para sorteos de amigo invisible.[Amigo Invisible Logo](./sorteos/static/img/logo.png) 
 
 
 **Amigo Invisible** es una aplicación para hacer sorteos de amigo invisible sin poner en riesgo la privacidad de los participantes. Los datos introducidos se utilizan exclusivamente para enviar la información a cada participante sobre a quién tienen que regalar.
