@@ -1,68 +1,59 @@
 {% extends "sorteos/base_layout.html" %}
 {% load static %}
- {% block sidebar_option %}
-    sidebar-collapse
-{% endblock %}
+ 
 {% block content %}
-<!-- <div class="container"> -->
-        <div class="content-wrapper">
-            <div class="content-header">   
-            </div>
-            <div class="container-fluid">
-                <div class="row justify-content-center">
-                    <div class="col-lg-6">
-                        <div class="card">
-                        <div class="card-header">
-                            <div class="row justfy-content-center">
-                                <img src="{% static '/img/logo.png' %}" alt="Amigo Invisible" class="img-thumbnail mx-auto">
-                            </div>
-                        </div>
-                            <div class="card-body">
-                                <form method="post">
-                                    {% csrf_token %}
-                                    <div class="form-row">
-                                        <div class="form-group col-md-12">
-                                            {% if form.errors %}
-                                            <div class="invalid-feedback d-block">Wrong username or password</div>
-                                            {% endif %}
-                                            <div class="form-label-group">
-                                                <label for="inputuser">Usuario</label>
-                                                <input type="username" id="inputuser" name="username" class="form-control" required autofocus>
-                                            </div>
-                                            {% for e in form.errors.username %}
-                                            <div class="invalid-feedback d-block">{{e}}</div>
-                                            {% endfor %}
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-12">
-                                            <div class="form-label-group">
-                                                <label for="inputPassword">Contraseña</label>
-                                                <input type="password" name="password" id="inputPassword" class="form-control" required>
-                                            </div>
-                                            {% for e in form.errors.password %}
-                                            <div class="invalid-feedback d-block">{{e}}</div>
-                                            {% endfor %}
-                                        </div>
-                                    </div>
-                                    <div class="form-row justify-content-center">
-                                        <input type="submit" class="btn btn-primary" value="Log In" />
-                                    </div>
-                                    <input type="hidden" name="next" value="{{ next }}" />
-                                </form>                             
-                            </div>
-                             
-                        </div>
-                        <div class="row justify-content-center">
-                            <a href="{% url 'sorteos:register' %}" class="btn btn-primary">Nuevo Usuario</a>
-                        </div> 
+    <div class="container-sm p-2 my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                <div class="card-header">
+                    <div class="row justify-content-center">
+                        <div class="col-4">
+                            <img src="{% static '/img/logo.png' %}" alt="Amigo Invisible" class="img-thumbnail">
+                        </div>                        
                     </div>
                 </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <div class="form-group col-md-12">
+                                    {% if form.errors %}
+                                    <div class="invalid-feedback d-block">Wrong username or password</div>
+                                    {% endif %}
+                                    <div class="form-label-group">
+                                        <label for="inputuser">Usuario</label>
+                                        <input type="username" id="inputuser" name="username" class="form-control" required autofocus>
+                                    </div>
+                                    {% for e in form.errors.username %}
+                                    <div class="invalid-feedback d-block">{{e}}</div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-group col-md-12">
+                                    <div class="form-label-group">
+                                        <label for="inputPassword">Contraseña</label>
+                                        <input type="password" name="password" id="inputPassword" class="form-control" required>
+                                    </div>
+                                    {% for e in form.errors.password %}
+                                    <div class="invalid-feedback d-block">{{e}}</div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="mb-3 justify-content-center">
+                                <input type="submit" class="btn btn-primary" value="Log In" />
+                            </div>
+                            <input type="hidden" name="next" value="{{ next }}" />
+                            <div class="mb-3 justify-content-center">
+                                <a href="{% url 'sorteos:register' %}" class="btn btn-primary">Nuevo Usuario</a>
+                            </div>
+                        </form>                             
+                    </div>      
+                </div>
             </div>
-            
         </div>
-    
-<!-- </div> -->
+    </div>            
 {% endblock %}
 
 

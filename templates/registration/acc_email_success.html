@@ -1,27 +1,23 @@
 {% extends "sorteos/base_layout.html" %}
 {% load static %}
- {% block sidebar_option %}
-    sidebar-collapse
-{% endblock %}
+ 
 {% block content %}
-<!-- <div class="container"> -->
-        <div class="content-wrapper">
-            <div class="content-header">   
-            </div>
-            <div class="container-fluid">
+            <div class="container-sm p-2 my-5">
                 <div class="row justify-content-center">
                     <div class="col-lg-6">
                         <div class="card">
                         <div class="card-header">
-                            <div class="row justfy-content-center">
-                                <img src="{% static '/img/logo.png' %}" alt="Amigo Invisible" class="img-thumbnail mx-auto">
+                            <div class="row justify-content-center">
+                                <div class="col-4">
+                                    <img src="{% static '/img/logo.png' %}" alt="Amigo Invisible" class="img-thumbnail">
+                                </div>                                
                             </div>
                         </div>
                             <div class="card-body">
-                                <div class="row justify-content-center">
+                                <div class="mb-3 justify-content-center">
                                     <p>Enhorabuena, {{ user }}. Has activado tu cuenta!</p>
                                 </div>
-                                <div class="row justify-content-center">
+                                <div class="mb-3 justify-content-center">
                                     <a href="{% url 'sorteos:index' %}">Volver</a>
                                 </div>                               
                             </div>
@@ -29,8 +25,4 @@
                     </div>
                 </div>
             </div>
-            
-        </div>
-    
-<!-- </div> -->
 {% endblock %}
