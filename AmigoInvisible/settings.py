@@ -207,6 +207,11 @@ CSRF_COOKIE_SAMESITE = 'Strict'
 CSRF_COOKIE_SECURE = True
 #CSRF_USE_SESSIONS = True
 
+# SESSION cookie settings
+SESSION_COOKIE_SAMESITE = 'Strict'
+SESSION_COOKIE_SECURE = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
