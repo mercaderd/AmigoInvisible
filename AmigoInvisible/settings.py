@@ -199,6 +199,14 @@ LOGGING = {
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR,'static')
 
+# CSRF cookie settings
+CSRF_COOKIE_NAME = 'csrfsecurity'
+CSRF_COOKIE_HTTPONLY = True
+CSRF_COOKIE_AGE = None
+CSRF_COOKIE_SAMESITE = 'Strict'
+CSRF_COOKIE_SECURE = True
+#CSRF_USE_SESSIONS = True
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
