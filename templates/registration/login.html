@@ -34,7 +34,7 @@
                                 <div class="form-group col-md-12">
                                     <div class="form-label-group">
                                         <label for="inputPassword">Contraseña</label>
-                                        <input type="password" name="password" id="inputPassword" class="form-control" required>
+                                        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="off" required>
                                     </div>
                                     {% for e in form.errors.password %}
                                     <div class="invalid-feedback d-block">{{e}}</div>

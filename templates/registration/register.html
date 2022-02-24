@@ -45,7 +45,7 @@
                                 <div class="form-group col-md-12">
                                     <div class="form-label-group">
                                         <label for="id_password1">Contraseña</label>
-                                        <input type="password" name="password1" id="id_password1" class="form-control" required>
+                                        <input type="password" name="password1" id="id_password1" class="form-control" autocomplete="off" required>
                                     </div>
                                     {% for e in form.errors.password1 %}
                                     <div class="invalid-feedback d-block">{{e}}</div>
@@ -56,7 +56,7 @@
                                 <div class="form-group col-md-12">
                                     <div class="form-label-group">
                                         <label for="id_password2">Repite la contraseña</label>
-                                        <input type="password" name="password2" id="id_password2" class="form-control" required>
+                                        <input type="password" name="password2" id="id_password2" class="form-control" autocomplete="off" required>
                                     </div>
                                     {% for e in form.errors.password2 %}
                                     <div class="invalid-feedback d-block">{{e}}</div>
