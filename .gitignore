@@ -2,7 +2,7 @@
 /static/
 *.sqlite3
 /sys
-/sorteos/migrations/0001_initial.py
+/sorteos/migrations/00*
 /logs/*.log
 /*/__pycache__/
 /*/*/__pycache__/
