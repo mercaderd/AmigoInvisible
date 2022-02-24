@@ -89,10 +89,7 @@ WSGI_APPLICATION = 'AmigoInvisible.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR,'db.sqlite3')
-    }
+    'default': env.db(),
 }
 
 CACHES = {
@@ -213,8 +210,8 @@ SESSION_COOKIE_SECURE = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # HSTS enabled
-SECURE_HSTS_SECONDS = 3600
-SECURE_SSL_REDIRECT = True
+#SECURE_HSTS_SECONDS = 3600
+#SECURE_SSL_REDIRECT = True
 
 
 # Default primary key field type
