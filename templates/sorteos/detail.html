@@ -20,7 +20,7 @@
                                             <li class="breadcrumb-item"><a href="{% url 'sorteos:sortear' sorteo.md5%}">Sortear</a></li>
                                             <li class="breadcrumb-item active" aria-current="page">Informar amigos</li>
                                             {% endif %}
-                                            <li class="breadcrumb-item"><a href="{% url 'sorteos:index' %}">Mis eventos</a></li>
+                                            <!-- <li class="breadcrumb-item"><a href="{% url 'sorteos:index' %}">Mis eventos</a></li> -->
                                         </ol>
                                     </nav>
                                 </div>
@@ -35,6 +35,7 @@
                                     {% elif sorteo.done and not sorteo.enviado %}
                                     <div class="alert alert-info" role="alert">¡Ya has hecho el sorteo! Envía los resultados a los participantes pulsando "Informar amigos"</div>
                                     {% else %}
+                                    <div class="alert alert-dark" role="alert">Si no desear participar en el sorteo, elimínate de la lista de participantes.</div>
                                     <div class="alert alert-dark" role="alert">Cuando termines de añadir participantes y las exclusiones. Pulsa "Sortear".</div>                                          
                                     {% endif %}
                                 </div>
@@ -42,7 +43,7 @@
                                     <table class="table table-bordered table-hover table-striped">
                                         <thead>
                                             <tr>
-                                                <th class="text-center">Amigo</th>
+                                                <th class="text-center">Participante</th>
                                                 <th class="text-center">Email</th>
                                                 <th class="text-center">Excepto</th>
                                             </tr>

@@ -6,6 +6,8 @@ import datetime
 class Sorteo(models.Model):
     name = models.CharField(max_length=20)
     description = models.CharField(max_length=200, blank=True)
+    mensaje = models.TextField(max_length=500, blank=True)
+    ownername = models.CharField(max_length=200, blank=False)
     created = models.DateTimeField(auto_now_add=True)
     md5 = models.SlugField(default='', max_length=32)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

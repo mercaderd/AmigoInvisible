@@ -16,4 +16,5 @@ urlpatterns = [
     path('exclusionborrar/<slug:md5>/', views.BorrarExclusionView.as_view(), name='exclusionborrar'),
     path('register/',views.RegisterView.as_view(), name = 'register'),
     path('activate/<uidb64>/<token>/',views.ActivateView.as_view(), name='activate'),
+    path('about/', views.AboutView.as_view(), name='about'),
 ]

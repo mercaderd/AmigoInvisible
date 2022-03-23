@@ -16,12 +16,14 @@ class RegisterForm(UserCreationForm):
 class SorteoForm(ModelForm):
     class Meta:
         model = Sorteo
-        fields = ['name', 'description']
+        fields = ['name', 'description', 'mensaje', 'ownername']
 
     def __init__(self, *args, **kwargs):
         super(SorteoForm, self).__init__(*args, **kwargs)
-        self.fields['name'].widget.attrs.update({'id': 'name', 'placeholder': 'Name'})
-        self.fields['description'].widget.attrs.update({'id': 'description', 'placeholder': 'Description'})
+        self.fields['name'].widget.attrs.update({'id': 'name', 'class':'form-control','placeholder': 'Name'})
+        self.fields['ownername'].widget.attrs.update({'id': 'ownername', 'class':'form-control', 'placeholder': 'Tu nombre'})
+        self.fields['description'].widget.attrs.update({'id': 'description',  'class':'form-control','placeholder': 'Description'})
+        self.fields['mensaje'].widget.attrs.update({'id': 'mensaje', 'class':'form-control', 'placeholder': 'Si quieres, puedes escribir un mensaje para los participantes'})
 
 
 class ParticipanteForm(ModelForm):
@@ -31,8 +33,8 @@ class ParticipanteForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ParticipanteForm, self).__init__(*args, **kwargs)
-        self.fields['name'].widget.attrs.update({'id': 'name', 'placeholder': 'Name'})
-        self.fields['email'].widget.attrs.update({'id': 'email', 'placeholder': 'Email'})
+        self.fields['name'].widget.attrs.update({'id': 'name', 'class':'form-control', 'placeholder': 'Name'})
+        self.fields['email'].widget.attrs.update({'id': 'email', 'class':'form-control', 'placeholder': 'Email'})
 
 
 class ExclusionForm(ModelForm):

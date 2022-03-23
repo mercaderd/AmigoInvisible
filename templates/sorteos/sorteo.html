@@ -38,6 +38,28 @@
                                     {% endfor %}
                                 </div>
                             </div>
+                            <div class="mb-3">
+                                <div class="form-group col-md-12">
+                                    <div class="form-label-group">
+                                        <label for="ownername">Tu nombre de participante</label>
+                                        {{form.ownername}}
+                                    </div>
+                                    {% for e in form.errors.ownername %}
+                                    <div class="invalid-feedback d-block">{{e}}</div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-group col-md-12">
+                                    <div class="form-label-group">
+                                        <label for="mensaje">Mensaje</label>
+                                        {{form.mensaje}}
+                                    </div>
+                                    {% for e in form.errors.mensaje %}
+                                    <div class="invalid-feedback d-block">{{e}}</div>
+                                    {% endfor %}
+                                </div>
+                            </div>
                             <div class="mb-3 justify-content-center">
                                 <input type="submit" class="btn btn-primary" value="Crear" />
                             </div>

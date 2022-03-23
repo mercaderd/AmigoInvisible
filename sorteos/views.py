@@ -59,6 +59,14 @@ class SorteoView(LoginRequiredMixin, generic.View):
         new_sorteo.md5 = hashlib.md5(md5_string.encode()).hexdigest()
         new_sorteo.owner = self.request.user
         new_sorteo.save()
+        new_participante = Participante()
+        new_participante.name = new_sorteo.ownername
+        new_participante.sorteo = new_sorteo
+        new_participante.email = new_sorteo.owner.email
+        new_participante.owner = new_sorteo.owner
+        md5_string = str(datetime.now().timestamp()) + new_sorteo.md5 + new_participante.email
+        new_participante.md5 = hashlib.md5(md5_string.encode()).hexdigest()
+        new_participante.save()
         log_msg = "Nuevo evento {} creado por usuario {}".format(new_sorteo.name, self.request.user)
         logger.info(log_msg)
         return HttpResponseRedirect(reverse('sorteos:index'))
@@ -299,6 +307,8 @@ class EnviarMailsView(LoginRequiredMixin, generic.View):
                         'partner': regalo.a_participante,
                         'evento': sorteo.name,
                         'condiciones': sorteo.description,
+                        'mensaje': sorteo.mensaje,
+                        'ownername': sorteo.ownername
                         })
                     to_email = regalo.de_participante.email
                     email = EmailMessage(
@@ -314,3 +324,13 @@ class EnviarMailsView(LoginRequiredMixin, generic.View):
             sorteo.enviado = True
             sorteo.save()       
         return HttpResponseRedirect(reverse('sorteos:detail',kwargs={'md5':sorteo.md5}))
+
+
+class AboutView(generic.TemplateView):
+    template_name = "sorteos/about.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # context['title'] = 'Title'
+        # context['version'] = 'version'
+        return context
