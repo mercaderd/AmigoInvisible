@@ -26,12 +26,12 @@
                   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                   </button>
-                  <a class="navbar-brand" href="#">Amigo Invisible</a>
+                  <a class="navbar-brand" href="{% url 'sorteos:landing' %}">Amigo Invisible</a>
                   <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                     {% if user.is_authenticated %}
                       <ul class="navbar-nav me-auto mb-2 mb-sm-0">
                         <li class="nav-item">
-                          <a class="nav-link" href="#">Hola, {{user.username}}</a>
+                          <a class="nav-link">Hola, {{user.username}}</a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" href="{% url 'sorteos:index' %}">Mis eventos</a>
@@ -71,7 +71,13 @@
             <div class="container-fluid">
               <strong>Diseñado con <a href="https://www.python.org/">Python</a> y <a href="https://https://www.djangoproject.com/">Django</a>.</strong>
               <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> Beta
+                <ul class="list-inline mb-2">
+                  <li class="list-inline-item"><a href="#">Protección de datos</a></li>
+                  <li class="list-inline-item">·</li>
+                  <li class="list-inline-item"><a href="#">Aviso legal</a></li>
+                  <li class="list-inline-item">·</li>
+                  <li class="list-inline-item"><b>Version</b> {{ version }}</li>
+                </ul>
               </div>
             </div>
           </nav>

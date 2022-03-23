@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+from django import VERSION
 import environ
 
 env = environ.Env(
@@ -19,6 +20,7 @@ env = environ.Env(
     DEBUG=(bool, False)
 )
 
+VERSION = '0.0.1'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 

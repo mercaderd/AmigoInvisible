@@ -1,4 +1,5 @@
 from distutils.log import INFO
+from django.conf import settings
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -36,6 +37,7 @@ class IndexView(LoginRequiredMixin, generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['version'] = settings.VERSION
         return context
 
     def setup(self, request, *args, **kwargs):
@@ -46,13 +48,13 @@ class SorteoView(LoginRequiredMixin, generic.View):
 
     def get(self, request):
         form = SorteoForm()
-        ctx = {'form': form}
+        ctx = {'form': form, 'version': settings.VERSION}
         return render(request, 'sorteos/sorteo.html', ctx)
 
     def post(self, request):
         form = SorteoForm(request.POST)
         if not form.is_valid():
-            ctx = {'form': form}
+            ctx = {'form': form, 'version': settings.VERSION}
             return render(request, 'sorteos/sorteo.html', ctx)
         new_sorteo = form.save(commit=False)
         md5_string = str(datetime.now().timestamp()) + new_sorteo.name
@@ -88,6 +90,7 @@ class DetailView(LoginRequiredMixin, generic.ListView):
         context['sorteo']=self.sorteo
         exclusiones = Exclusion.objects.filter(sorteo__md5 = self.sorteo.md5)
         context['exclusiones'] = exclusiones
+        context['version'] = settings.VERSION
         return context
 
     def setup(self, request, *args, **kwargs):
@@ -99,14 +102,14 @@ class ParticipanteView(LoginRequiredMixin, generic.View):
     def get(self, request, md5):
         form = ParticipanteForm()
         form.sorteo = get_object_or_404(Sorteo, md5=md5)
-        ctx = {'form': form, 'sorteo': form.sorteo}
+        ctx = {'form': form, 'sorteo': form.sorteo, 'version': settings.VERSION}
         return render(request, 'sorteos/participante.html', ctx)
 
     def post(self, request, md5):
         form = ParticipanteForm(request.POST)
         if not form.is_valid():
             form.sorteo = get_object_or_404(Sorteo, md5=md5)
-            ctx = {'form': form, 'sorteo': form.sorteo}
+            ctx = {'form': form, 'sorteo': form.sorteo, 'version': settings.VERSION}
             return render(request, 'sorteos/participante.html', ctx)
         new_participante = form.save(commit=False)
         new_participante.owner = self.request.user
@@ -130,7 +133,7 @@ class ExclusionView(LoginRequiredMixin, generic.View):
         form.sorteo = get_object_or_404(Sorteo, md5=sorteo_md5)
         form.de_participante = get_object_or_404(Participante,md5=participante_md5)
         exclusiones = Exclusion.objects.filter(de_participante__md5 = participante_md5)
-        ctx = {'form': form, 'sorteo': form.sorteo, 'participante': form.de_participante, 'exclusiones': exclusiones}
+        ctx = {'form': form, 'sorteo': form.sorteo, 'participante': form.de_participante, 'exclusiones': exclusiones, 'version': settings.VERSION}
         return render(request, 'sorteos/exclusion.html', ctx)
 
     def post(self, request, sorteo_md5, participante_md5):
@@ -141,7 +144,7 @@ class ExclusionView(LoginRequiredMixin, generic.View):
         form.sorteo = sorteo
         form.de_participante = get_object_or_404(Participante,md5=participante_md5)
         if not form.is_valid():
-            ctx = {'form': form, 'sorteo': form.sorteo, 'participante':form.de_participante}
+            ctx = {'form': form, 'sorteo': form.sorteo, 'participante':form.de_participante, 'version': settings.VERSION}
             return render(request, 'sorteos/exclusion.html', ctx)
         new_exclusion = form.save(commit=False)
         new_exclusion.owner = self.request.user
@@ -203,13 +206,13 @@ class RegisterView(generic.View):
 
     def get(self, request):
         form = RegisterForm()
-        ctx = {'form': form}
+        ctx = {'form': form, 'version': settings.VERSION}
         return render(request, 'registration/register.html', ctx)
 
     def post(self, request):
         form = RegisterForm(request.POST)
         if not form.is_valid():
-            ctx = {'form': form}
+            ctx = {'form': form, 'version': settings.VERSION}
             return render(request, 'registration/register.html', ctx)
         user = form.save(commit=False)
         user.is_active = False
@@ -234,7 +237,7 @@ class RegisterView(generic.View):
             logger.info(log_msg)
         except Exception as e:
             logger.error(e)
-        ctx = {'user': user}
+        ctx = {'user': user, 'version': settings.VERSION}
         return render(request, 'registration/acc_email_confirm.html', ctx)
 
 
@@ -251,12 +254,13 @@ class ActivateView(generic.View):
             user.save()
             log_msg = "Usuario {} activado correctamente".format(user)
             logger.info(log_msg)
-            ctx = {'user': user}
+            ctx = {'user': user, 'version': settings.VERSION}
             return render(request, 'registration/acc_email_success.html', ctx)
         else:
             log_msg = "Intento de activación de usuario con uid {}".format(uid)
             logger.warn(log_msg)
-            return render(request, 'registration/acc_email_fail.html')
+            ctx = {'version': settings.VERSION}
+            return render(request, 'registration/acc_email_fail.html', ctx)
 
 
 class SortearView(LoginRequiredMixin, generic.View):
@@ -332,5 +336,15 @@ class AboutView(generic.TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # context['title'] = 'Title'
-        # context['version'] = 'version'
+        context['version'] = settings.VERSION
+        return context
+
+
+class LandingView(generic.TemplateView):
+    template_name = "sorteos/landing.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # context['title'] = 'Title'
+        context['version'] = settings.VERSION
         return context

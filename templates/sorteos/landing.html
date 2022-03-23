@@ -1,0 +1,19 @@
+{% extends "sorteos/base_layout.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="container-sm p-2 my-2">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card text-center">
+                    <img src="{% static 'img/regalo.png' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Amigo Invisible</h5>
+                        <p class="card-text">Sorteos de amigo invisible de forma segura y respetuosa con tu privacida.</p>
+                        <a class="btn btn-primary" href="{% url 'sorteos:index' %}" role="button">Comienza ahora</a>                           
+                    </div>                    
+                </div>          
+            </div>
+        </div>
+    </div>
+{% endblock %}
