@@ -232,6 +232,8 @@ class RegisterView(generic.View):
             mail_subject, message, to=[to_email]
             )
         try:
+            
+            email.content_subtype = "html"
             email.send()
             log_msg = "Email de activación enviado a usuario {}".format(user)
             logger.info(log_msg)
@@ -319,6 +321,7 @@ class EnviarMailsView(LoginRequiredMixin, generic.View):
                         mail_subject, message, to=[to_email]
                         )
                     try:
+                        email.content_subtype = "html"
                         email.send()
                         log_msg = "Email enviado correctamente a usuario {} para evento {}".format(regalo.de_participante, sorteo.name)
                         logger.info(log_msg)

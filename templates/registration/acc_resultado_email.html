@@ -1,9 +1,13 @@
-Hola {{ user }},
+<html>
+    <head>
 
-{{ ownername}} te ha incuído en un evento de amigo invisible al que ha llamado {{ evento }}.
+    </head>
+    <body>
+        <p>Hola {{ user }},</p>
+        <p>{{ ownername}} te ha incuído en un evento de amigo invisible al que ha llamado {{ evento }}.</p>
+        <p>Mensaje de {{ ownername }}: {{ mensaje }}</p>
+        <p>Te ha tocado regalar a <strong>{{ partner }}</strong>.</p>
+        <p>Ten encuenta las siguientes condiciones: {{ condiciones }}</p>
+    </body>
+</html>
 
-Mensaje de {{ ownername }}: {{ mensaje }}
-
-Te ha tocado regalar a {{ partner }}.
-
-Ten encuenta las siguientes condiciones: {{ condiciones }}
