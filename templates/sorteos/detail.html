@@ -71,7 +71,11 @@
                                             {% endfor %}
                                         </tbody>                                                      
                                     </table>                      
-                                </div>        
+                                </div>
+                                <a class="btn btn-primary btn-block" href="{% url 'sorteos:participante' sorteo.md5%}" role="button">Añadir amigo</a>
+                                <a class="btn btn-primary btn-block {% if sorteo.done %}disabled{% endif %}" href="{% url 'sorteos:sortear' sorteo.md5%}" role="button">Sortear</a>
+                                <a class="btn btn-primary btn-block {% if not sorteo.done %}disabled{% endif %}" href="{% url 'sorteos:mails' sorteo.md5%}" role="button">Informar amigos</a>
+                                </div>       
                             </div>
                             <!-- /.box-body -->
                         </div>        
